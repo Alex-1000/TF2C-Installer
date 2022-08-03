@@ -1,0 +1,6 @@
+tf2c_installer.spec
+build
+dist
+__pycache__
+.temp
+notes.md
