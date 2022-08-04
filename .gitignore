@@ -2,5 +2,6 @@ tf2c_installer.spec
 build
 dist
 __pycache__
+.vscode
 .temp
 notes.md

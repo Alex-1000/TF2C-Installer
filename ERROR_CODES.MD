@@ -6,3 +6,4 @@
 - 5: access denied
 - 160: bad arguments
 - 402: running in background
+- 572: exited by Ctrl-C
