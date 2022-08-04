@@ -32,7 +32,7 @@ def find_sourcemod():
         else:
             sourcepath = None
             with open(os.path.expanduser(r'~/.steam/registry.vdf'), encoding="utf-8") as file:
-                for _, line in enumerate(file):
+                for i, line in enumerate(file):
                     if 'SourceModInstallPath' in line:
                         sourcepath = line[line.index('/home'):-1].replace(r'\\', '/').replace('"', '')
                         break
@@ -48,7 +48,19 @@ def select_folder():
     path = find_sourcemod()
     if path is not None:
         cli.message(_('Sourcemod folder found at {}, do you want to install game there?'), path, 'yellow')
-        cli.question(_('Y - yes | N - no | L - create symlink:'), [ cli.yes_answers, cli.no_answers , _('l link symlink').split() ], style='yellow')
+        #mode = cli.question(_('Y - yes | N - no | L - create symlink:'), [ cli.yes_answers, cli.no_answers , 'l link symlink'.split() ], style='yellow')
+        mode = cli.question(_('Y - yes | N - no:'), style='yellow')
+        if mode == 'y':
+            return path
+        elif mode == 'n':
+            cli.message(':warning: ' + _('You will have to move game to sourcemod folder manually.'), style = 'yellow')
+    else:
+        cli.message(':warning: ' + _('Sourcemod folder was not found. You will have to move game to it manually.'), style='yellow')
+    while True:
+        path = cli.select_directory(_('Please, select directory for installing TF2 Classic.'), style='yellow')
+        cli.message(_('Do you want to install TF2C at {}?'), path, 'yellow')
+        if cli.question(_('Y - yes | N - no')) == 'y':
+            break
     return path
 
 # TODO: make actual symlinking

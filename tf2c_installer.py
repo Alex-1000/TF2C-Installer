@@ -7,7 +7,7 @@ import signal
 import sys
 
 import cli
-import sourcemod
+import setup
 
 # Future gettext support
 def _(x): return x
@@ -38,12 +38,15 @@ def install(step = 0, path = None):
     try:
         background_check()
         if step == 0:
-            path = sourcemod.select_folder()
+            path = setup.select_folder()
         if step > 0:
             pass
     except Exception as ex:
         if ex is not SystemExit:
             cli.console.print_exception()
+            cli.message('----- ' + _('Exception details above') + ' -----', style='bold red')
+            cli.message(_('Please, contact {} on Discord or open issue in Github repository:'), 'TheGamer#3173', style='red')
+            cli.message('https://github.com/Alex-1000/TF2C-Installer', style='blue')
 
 if __name__ == '__main__':
     install()
